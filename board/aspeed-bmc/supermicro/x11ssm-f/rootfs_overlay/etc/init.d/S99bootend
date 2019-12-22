@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# bootend
+#
+
+DAEMON="bootend"
+PIDFILE="/var/run/$DAEMON.pid"
+
+start() {
+	# Enable heartbeat led
+	echo heartbeat >/sys/class/leds/heartbeat/trigger
+}
+
+stop() {
+	echo none >/sys/class/leds/heartbeat/trigger
+}
+
+case "$1" in
+  start|restart)
+	start
+	;;
+	stop)
+	:;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

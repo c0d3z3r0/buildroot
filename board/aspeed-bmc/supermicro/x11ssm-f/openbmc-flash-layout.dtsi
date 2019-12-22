@@ -1,0 +1,20 @@
+partitions {
+	compatible = "fixed-partitions";
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	boot@0x0 {
+		reg = <0x0 0x00010000>;
+		label = "boot";
+	};
+
+	kernel@0x00010000 {
+		reg = <0x00010000 0x00500000>;
+		label = "kernel";
+	};
+
+	ubi@0x00510000 {
+		reg = <0x00510000 0x01af0000>;
+		label = "ubi";
+	};
+};

@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Set fan speed
+#
+
+DAEMON="fans"
+PIDFILE="/var/run/$DAEMON.pid"
+
+HWMON="$(ls -d /sys/bus/platform/drivers/aspeed_pwm_tacho/1e786000.pwm-tacho-controller/hwmon/hwmon?)"
+
+start() {
+	# FANs 1-4
+	echo 50 >${HWMON}/pwm1
+	# FAN A
+	echo 75 >${HWMON}/pwm2
+}
+
+case "$1" in
+  start|restart)
+	start
+	;;
+	stop)
+	:;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
