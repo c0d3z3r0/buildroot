@@ -20,5 +20,6 @@ source "boot/shim/Config.in"
 source "boot/syslinux/Config.in"
 source "boot/uboot/Config.in"
 source "boot/vexpress-firmware/Config.in"
+source "boot/aspeedboot/Config.in"
 
 endmenu

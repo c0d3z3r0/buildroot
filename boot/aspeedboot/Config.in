@@ -1,0 +1,7 @@
+config BR2_TARGET_ASPEEDBOOT
+	bool "aspeed bootloader"
+	depends on BR2_arm926t
+	help
+	  Aspeed bootloader is a minimal bootloader for Aspeed SoCs like
+	  the AST2400. It only does required hardware setup like cpu memory
+	  and flash initialization and jumps directly to Linux.
