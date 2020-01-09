@@ -1,0 +1,7 @@
+config BR2_PACKAGE_ASPEEDTOOL
+	bool "aspeedtool"
+	help
+	  aspeedtool dumps all known registers on Aspeed SoC based systems.
+	  Currently only AST2400 is supported. AST2500 has many matching registers.
+
+	  https://github.com/c0d3z3r0/aspeedtool
