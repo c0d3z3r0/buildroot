@@ -84,6 +84,8 @@ define SHAIRPORT_SYNC_INSTALL_INIT_SYSV
 endef
 
 ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+SHAIRPORT_SYNC_DEPENDENCIES += pulseaudio
+SHAIRPORT_SYNC_CONF_OPTS += --with-pa
 define SHAIRPORT_SYNC_USERS
 	shairport-sync -1 shairport-sync -1 * /var/run/shairport-sync - audio,pulse-access
 endef

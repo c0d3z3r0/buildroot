@@ -6,7 +6,9 @@ OPTIONS="-d"
 case "$1" in
     start)
 	printf "Starting shairport-sync: "
-	start-stop-daemon -S -q -c pulseaudio-sync \
+	mkdir /var/run/shairport-sync
+	chown shairport-sync. /var/run/shairport-sync
+	start-stop-daemon -S -q -c shairport-sync \
 		--exec /usr/bin/shairport-sync -- $OPTIONS
 	[ $? = 0 ] && echo "OK" || echo "FAIL"
 	;;
