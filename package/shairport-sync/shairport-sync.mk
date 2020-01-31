@@ -95,4 +95,11 @@ define SHAIRPORT_SYNC_USERS
 endef
 endif
 
+define SHAIRPORT_SYNC_INSTALL_DBUS_POLICY
+	$(INSTALL) -m 0644 -D \
+		$(@D)/scripts/shairport-sync-dbus-policy.conf \
+		$(TARGET_DIR)/etc/dbus-1/system.d/shairport-sync-dbus-policy.conf
+endef
+SHAIRPORT_SYNC_POST_INSTALL_TARGET_HOOKS += SHAIRPORT_SYNC_INSTALL_DBUS_POLICY
+
 $(eval $(autotools-package))
