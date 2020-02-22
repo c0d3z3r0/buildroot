@@ -1,0 +1,43 @@
+### Automatically restore the volume of streams and devices
+load-module module-device-restore
+load-module module-stream-restore
+load-module module-card-restore
+
+### Automatically load driver modules depending on the hardware available
+load-module module-udev-detect
+
+### Load several protocols
+.ifexists module-esound-protocol-unix.so
+load-module module-esound-protocol-unix
+.endif
+load-module module-native-protocol-unix
+
+### Automatically restore the default sink/source when changed by the user
+### during runtime
+### NOTE: This should be loaded as early as possible so that subsequent modules
+### that look up the default sink/source get the right value
+load-module module-default-device-restore
+
+### Automatically move streams to the default sink if the sink they are
+### connected to dies, similar for sources
+load-module module-rescue-streams
+
+### Make sure we always have a sink around, even if it is a null sink.
+load-module module-always-sink
+
+### Automatically suspend sinks/sources that become idle for too long
+load-module module-suspend-on-idle
+
+### Enable positioned event sounds
+load-module module-position-event-sounds
+
+#load-module module-remap-sink sink_name=reverse-stereo master=0 channels=2 master_channel_map=front-right,front-left channel_map=front-left,front-right
+#set-default-sink reverse-stereo
+load-module module-native-protocol-tcp listen=192.168.88.5 auth-ip-acl=127.0.0.1;192.168.42.0/24;192.168.175.0/24 auth-anonymous=1
+load-module module-zeroconf-publish
+
+#load-module module-null-sink sink_name=upnp format=s24 channels=2 rate=48000 sink_properties="device.description='DLNA/UPnP Streaming' device.bus='network' device.icon_name='network-server'"
+#load-module module-rygel-media-server
+
+load-module module-null-sink sink_name=rtp format=s24 channels=2 rate=48000 sink_properties="device.description='RTP AiRpi'"
+load-module module-rtp-recv sink=rtpsink sap_address=232.43.211.230

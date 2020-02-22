@@ -1,0 +1,9 @@
+disable_splash=1
+dtparam=audio=off
+
+gpu_mem=16
+initial_turbo=15
+
+kernel=zImage
+device_tree=bcm2835-rpi-b-rev2.dtb
+initramfs rootfs.cpio.gz

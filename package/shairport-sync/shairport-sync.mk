@@ -83,4 +83,23 @@ define SHAIRPORT_SYNC_INSTALL_INIT_SYSV
 		$(TARGET_DIR)/etc/init.d/S99shairport-sync
 endef
 
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+SHAIRPORT_SYNC_DEPENDENCIES += pulseaudio
+SHAIRPORT_SYNC_CONF_OPTS += --with-pa
+define SHAIRPORT_SYNC_USERS
+	shairport-sync -1 shairport-sync -1 * /var/run/shairport-sync - audio,pulse-access
+endef
+else
+define SHAIRPORT_SYNC_USERS
+	shairport-sync -1 shairport-sync -1 * /var/run/shairport-sync - audio
+endef
+endif
+
+define SHAIRPORT_SYNC_INSTALL_DBUS_POLICY
+	$(INSTALL) -m 0644 -D \
+		$(@D)/scripts/shairport-sync-dbus-policy.conf \
+		$(TARGET_DIR)/etc/dbus-1/system.d/shairport-sync-dbus-policy.conf
+endef
+SHAIRPORT_SYNC_POST_INSTALL_TARGET_HOOKS += SHAIRPORT_SYNC_INSTALL_DBUS_POLICY
+
 $(eval $(autotools-package))

@@ -68,4 +68,15 @@ define RYGEL_INSTALL_INIT_SYSTEMD
 		$(TARGET_DIR)/usr/lib/systemd/system/rygel.service
 endef
 
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+RYGEL_DEPENDENCIES += pulseaudio
+define RYGEL_USERS
+	rygel -1 rygel -1 * /var/run/rygel - audio,pulse-access
+endef
+else
+define RYGEL_USERS
+	rygel -1 rygel -1 * /var/run/rygel - audio
+endef
+endif
+
 $(eval $(autotools-package))
